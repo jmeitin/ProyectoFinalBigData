@@ -8,7 +8,7 @@
 * Página web
 
 # Descripción:
-READEME must describe the code and application files, and how your program should be run.
+README must describe the code and application files, and how your program should be run.
 
 # Página Web:
 An important piece of your final project is a public web site that describes all the great work you did for your project. The web site serves as the final project report, and needs to describe your complete project.
