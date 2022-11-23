@@ -1,14 +1,14 @@
-import datetime
-from bs4 import BeautifulSoup
-import re
-import numpy as np
-import pandas as pd
 from dateutil.relativedelta import relativedelta
-from datetime import datetime
-import time
 from urllib.request import Request, urlopen
-import random
+from bs4 import BeautifulSoup
+from datetime import datetime
+import pandas as pd
+import numpy as np
+import datetime
 import requests
+import random
+import time
+import re
 
 PREFIX = 'https://www.hltv.org'
 proxyDict = None
