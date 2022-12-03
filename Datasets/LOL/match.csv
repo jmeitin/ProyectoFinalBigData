@@ -1,2 +1,3 @@
-,gameMode,participant
-0,CLASSIC,{"participantId": 1, "game": 45}
+id,gameMode,participants
+0,CLASSIC,"{ 'array' : [{'participantId': 1, 'teamId': 100, 'championId': 7}, {'participantId': 2, 'teamId': 200, 'championId': 2}] }"
+

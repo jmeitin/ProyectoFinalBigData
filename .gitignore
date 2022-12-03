@@ -125,7 +125,7 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-lol_matches.csv
+Datasets/LOL/matches.csv
 
 # Pyre type checker
 .pyre/
