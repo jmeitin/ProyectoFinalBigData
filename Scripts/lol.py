@@ -2,7 +2,7 @@ from pyspark import SparkConf, SparkContext
 from pyspark.sql.session import SparkSession
 from pyspark.sql.functions import from_json
 
-conf = SparkConf().setAppName('LoL')
+conf = SparkConf().setAppName('CSGO')
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
