@@ -21,6 +21,19 @@ winnerDF = winnerDF.withColumn("higher_rank_is_winner", \
        .when((winnerDF.t1_world_rank > winnerDF.t2_world_rank) & (winnerDF.winner == "t2"), lit(True)) \
     .otherwise(lit(False)))
 
+countDF = winnerDF.groupBy("higher_rank_is_winner").count()
+
+# Get row count
+rows = df.count()
+
+# # Get columns count
+# cols = len(df.columns)
+# print(f"DataFrame Columns count : {cols}")
+
+countDF = countDF.withColumn("count", countDF["count"] / rows)
+
 winnerDF.show()
+countDF.show()
+
 
 
