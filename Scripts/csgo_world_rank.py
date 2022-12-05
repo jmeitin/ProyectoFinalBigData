@@ -2,7 +2,7 @@ from pyspark import SparkConf, SparkContext
 from pyspark.sql.session import SparkSession
 from pyspark.sql.functions import when, lit
 
-conf = SparkConf().setAppName('CSGO')
+conf = SparkConf().setAppName('CSGO World Rank')
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
@@ -36,6 +36,7 @@ def main ():
 
     # Resultado: Cuantos son True/False?
     countDF = winnerDF.groupBy("higher_rank_is_winner").count() 
+
     # Calculamos %
     countDF = countDF.withColumn("count", countDF["count"] / rows)
 
