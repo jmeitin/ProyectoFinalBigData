@@ -7,29 +7,23 @@ sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
 def leer_csv():
-
     "Devuelve un DataFrame con los datos del csv"
     df = spark.read.option("header", True).csv("../Datasets/CSGO/csgo_games.csv")
 
     # Conversion columnas a datos usados
-    df = df.withColumn('t1_player1_rating', df['t1_player1_rating'].cast("Float"))
-    df = df.withColumn('t1_player2_rating', df['t1_player2_rating'].cast("Float"))
-    df = df.withColumn('t1_player3_rating', df['t1_player3_rating'].cast("Float"))
-    df = df.withColumn('t1_player4_rating', df['t1_player4_rating'].cast("Float"))
-    df = df.withColumn('t1_player5_rating', df['t1_player5_rating'].cast("Float"))
-
-    df = df.withColumn('t2_player1_rating', df['t2_player1_rating'].cast("Float"))
-    df = df.withColumn('t2_player2_rating', df['t2_player2_rating'].cast("Float"))
-    df = df.withColumn('t2_player3_rating', df['t2_player3_rating'].cast("Float"))
-    df = df.withColumn('t2_player4_rating', df['t2_player4_rating'].cast("Float"))
-    df = df.withColumn('t2_player5_rating', df['t2_player5_rating'].cast("Float"))
+    for player in range(5): # [0, 4]
+        nombre = 't1_player' + str(player + 1) + '_rating' #'t1_player1_rating'
+        df = df.withColumn(nombre, df[nombre].cast("Float")) #df.withColumn('t1_player2_rating', df['t1_player2_rating'].cast("Float"))
+    
+    for player in range(5): # [0, 4]
+        nombre = 't2_player' + str(player + 1) + '_rating' #'t1_player1_rating'
+        df = df.withColumn(nombre, df[nombre].cast("Float"))
 
     df = df.withColumn('winner', df['winner'].cast("String"))
 
     return df
 
 def mean(dataframe, team):
-
     player1 = dataframe["t" + team + "_player1_rating"]
     player2 = dataframe["t" + team + "_player2_rating"]
     player3 = dataframe["t" + team + "_player3_rating"]
@@ -39,7 +33,6 @@ def mean(dataframe, team):
     return (player1 + player2 + player3 + player4 + player5) / 5
 
 def team_variance(dataframe, team):
-
     player1 = dataframe["t" + team + "_player1_rating"]
     player2 = dataframe["t" + team + "_player2_rating"]
     player3 = dataframe["t" + team + "_player3_rating"]
@@ -75,13 +68,13 @@ def main ():
     ratingDF = ratingDF.drop('t1_player1_rating', 't1_player2_rating', 't1_player3_rating', 't1_player4_rating',
     't1_player5_rating', 't2_player1_rating', 't2_player2_rating', 't2_player3_rating', 't2_player4_rating', 't2_player5_rating')
 
-    # Evaluacion Datos ==> Gano el que tenia mejor world rank?
+    # Evaluacion Datos ==> Gano el que tenia mejor RATING PROMEDIO?
     ratingDF = ratingDF.withColumn("higher_team_rating_is_winner", \
     when((ratingDF.team1_rating > ratingDF.team2_rating) & (ratingDF.winner == "t1"), lit(True)) \
         .when((ratingDF.team2_rating > ratingDF.team1_rating) & (ratingDF.winner == "t2"), lit(True)) \
         .otherwise(lit(False)))
 
-        # Evaluacion Datos ==> Gano el que tenia mejor world rank?
+    # Evaluacion Datos ==> Gano el que tenia menor VARIANZA en el RATING?
     ratingDF = ratingDF.withColumn("lower_team_rating_variance_is_winner", \
     when((ratingDF.team1_rating_variance < ratingDF.team2_rating_variance) & (ratingDF.winner == "t1"), lit(True)) \
         .when((ratingDF.team2_rating_variance < ratingDF.team1_rating_variance) & (ratingDF.winner == "t2"), lit(True)) \
@@ -89,7 +82,6 @@ def main ():
 
     # Resultado: Cuantos son True/False?
     meanDF = ratingDF.groupBy("higher_team_rating_is_winner").count()
-
     varianceDF = ratingDF.groupBy("lower_team_rating_variance_is_winner").count()
 
     # Calculamos %
@@ -97,8 +89,8 @@ def main ():
     varianceDF = varianceDF.withColumn("count", varianceDF["count"] / rows)
 
     ratingDF.show()
-    meanDF.show()
-    varianceDF.show()
+    meanDF.show() # 57.35%
+    varianceDF.show() # 49.74%
 
 main()
 

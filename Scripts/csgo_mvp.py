@@ -12,17 +12,13 @@ def leer_csv():
     df = spark.read.option("header", True).csv("../Datasets/CSGO/csgo_games.csv")
 
     # Conversion columnas a datos usados
-    df = df.withColumn('t1_player1_rating', df['t1_player1_rating'].cast("Float"))
-    df = df.withColumn('t1_player2_rating', df['t1_player2_rating'].cast("Float"))
-    df = df.withColumn('t1_player3_rating', df['t1_player3_rating'].cast("Float"))
-    df = df.withColumn('t1_player4_rating', df['t1_player4_rating'].cast("Float"))
-    df = df.withColumn('t1_player5_rating', df['t1_player5_rating'].cast("Float"))
-
-    df = df.withColumn('t2_player1_rating', df['t2_player1_rating'].cast("Float"))
-    df = df.withColumn('t2_player2_rating', df['t2_player2_rating'].cast("Float"))
-    df = df.withColumn('t2_player3_rating', df['t2_player3_rating'].cast("Float"))
-    df = df.withColumn('t2_player4_rating', df['t2_player4_rating'].cast("Float"))
-    df = df.withColumn('t2_player5_rating', df['t2_player5_rating'].cast("Float"))
+    for player in range(5): # [0, 4]
+        nombre = 't1_player' + str(player + 1) + '_rating' #'t1_player1_rating'
+        df = df.withColumn(nombre, df[nombre].cast("Float")) #df.withColumn('t1_player2_rating', df['t1_player2_rating'].cast("Float"))
+    
+    for player in range(5): # [0, 4]
+        nombre = 't2_player' + str(player + 1) + '_rating' #'t1_player1_rating'
+        df = df.withColumn(nombre, df[nombre].cast("Float"))
 
     df = df.withColumn('winner', df['winner'].cast("String"))
 
@@ -31,9 +27,7 @@ def leer_csv():
 def getMaxInRows(*cols):
     return float(max(x for x in cols))
 
-
 def mvpRating():
-
     minf = lit(float("-inf"))
 
     rowmax = greatest(*[coalesce(col(x), minf) for x in ['t1_player1_rating','t1_player2_rating', 't1_player3_rating', 
@@ -47,16 +41,11 @@ def main ():
     df = leer_csv()
     rows = df.count() #Numero de filas ==> Partidas guardadas
 
-    # # Get columns count
-    # cols = len(df.columns)
-    # print(f"DataFrame Columns count : {cols}")
-
     # Datos que queremos evaluar
     ratingDF = df.select('winner', 't1_player1_rating', 't1_player2_rating', 't1_player3_rating', 't1_player4_rating',
     't1_player5_rating', 't2_player1_rating', 't2_player2_rating', 't2_player3_rating', 't2_player4_rating', 't2_player5_rating')
 
     ratingDF = ratingDF.withColumn("mvpRating", mvpRating())
-
 
     ratingDF = ratingDF.withColumn("mvpInTeam1", when((ratingDF.t1_player1_rating == ratingDF.mvpRating) | 
     (ratingDF.t1_player2_rating == ratingDF.mvpRating) |
@@ -68,7 +57,7 @@ def main ():
     ratingDF = ratingDF.drop('t1_player1_rating', 't1_player2_rating', 't1_player3_rating', 't1_player4_rating',
     't1_player5_rating', 't2_player1_rating', 't2_player2_rating', 't2_player3_rating', 't2_player4_rating', 't2_player5_rating')
 
-    # Evaluacion Datos ==> Gano el que tenia mejor world rank?
+    # Evaluacion Datos ==> Gano el que tenia al MVP?
     winnerDF = ratingDF.withColumn("mpv_in_team_is_winner", \
     when((ratingDF.mvpInTeam1 == True) & (ratingDF.winner == "t1"), lit(True)) \
         .when((ratingDF.mvpInTeam1 == False) & (ratingDF.winner == "t2"), lit(True)) \
@@ -81,12 +70,7 @@ def main ():
     countDF = countDF.withColumn("count", countDF["count"] / rows)
 
     winnerDF.show()
-    countDF.show()
+    countDF.show() # 55.66%
 
 main()
-
-
-
-
-
 

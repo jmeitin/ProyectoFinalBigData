@@ -28,7 +28,7 @@ def main ():
     # Datos que queremos evaluar
     winnerDF = df.select('winner', 't1_world_rank', 't2_world_rank')
 
-    # Evaluacion Datos ==> Gano el que tenia mejor world rank?
+    # Evaluacion Datos ==> Gano el que tenia mejor WORLD RANK?
     winnerDF = winnerDF.withColumn("higher_rank_is_winner", \
     when((winnerDF.t1_world_rank < winnerDF.t2_world_rank) & (winnerDF.winner == "t1"), lit(True)) \
         .when((winnerDF.t1_world_rank > winnerDF.t2_world_rank) & (winnerDF.winner == "t2"), lit(True)) \
@@ -41,7 +41,7 @@ def main ():
     countDF = countDF.withColumn("count", countDF["count"] / rows)
 
     winnerDF.show()
-    countDF.show()
+    countDF.show() # 58.64%
 
 main()
 
