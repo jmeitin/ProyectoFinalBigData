@@ -1,7 +1,6 @@
 from pyspark import SparkConf, SparkContext
 from pyspark.sql.session import SparkSession
 from pyspark.sql.functions import when, lit, greatest, coalesce, col
-from pyspark.sql.types import FloatType
 
 conf = SparkConf().setAppName('CSGO MVP')
 sc = SparkContext(conf = conf)
@@ -14,7 +13,7 @@ def leer_csv():
     # Conversion columnas a datos usados
     for player in range(5): # [0, 4]
         nombre = 't1_player' + str(player + 1) + '_rating' #'t1_player1_rating'
-        df = df.withColumn(nombre, df[nombre].cast("Float")) #df.withColumn('t1_player2_rating', df['t1_player2_rating'].cast("Float"))
+        df = df.withColumn(nombre, df[nombre].cast("Float"))
     
     for player in range(5): # [0, 4]
         nombre = 't2_player' + str(player + 1) + '_rating' #'t1_player1_rating'
