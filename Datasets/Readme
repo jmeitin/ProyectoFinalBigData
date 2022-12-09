@@ -1,0 +1,7 @@
+Los datos han sido seleccionado en Kaggle a través de este enlace:
+
+https://www.kaggle.com/datasets/gabrieltardochi/counter-strike-global-offensive-matches
+
+Debido a que el csv que hemos usado pesa 5,2 Mb lo hemos duplicado hasta 2GB para 
+estudiar el rendimiento en el Cloud.
+

@@ -1,27 +1,58 @@
 # Análisis de factores de victoria en CSGO
+Proyecto Final de Cloud y Big Data - Facultad de Informática UCM 2022/23
+
+El objetivo de este proyecto es analizar un conjunto de partidas competitivas Tier 1 de CSGO
+para estudiar en que medida afectan distintas estadísitcas de dichas partidas a que un equipo
+gane/pierda.
+
+Para ello, nuestros datos recogen datos de partidas competitivas desde el 2016 hasta el 2020
+donde cada una tiene información sobre cada jugador y equipos.
+
+En total, hemos analizado las siguientes estadśiticas:
+
+- En que medida afecta el ranking global de los equipos a la victoria.
+- En que medida afecta la puntuación media del equipo a la victoria.
+- En que medida afecta que el nivel de cada jugador sea diferente o parecido al resto de sus compañeros a la victoria.
+- En que medida afecta el que un equipo tenga el MVP de la partida en su equipo a la victoria.
+- En que medida afecta el que un equipo juegue con mas SNIPERS en su equipo a la victoria.
+- En que medida afecta el daño medio por ronda del equipo a la victoria.
+
+# Participantes
 * Pablo Fernández Álvarez
 * Javier Meitín Moreno
 
-# Links de Interés
-* [Presentación idea](https://docs.google.com/presentation/d/1Cyrf4gibaFM47mVAJzBG6HN32uutDxz_1npGN45Pm9Y/edit?usp=sharing)
-* [Presentación Final](https://docs.google.com/presentation/d/1Vb_LUsPNkXkjxOds-mX-2kMPehKJY4j0r_7xEoUFf70/edit?usp=sharing)
+# Links de interés
 * [Página web](https://jmeitin.github.io/)
 
-# Descripción:
-README must describe the code and application files, and how your program should be run.
+# Configuración del proyecto:
 
-# Página Web:
-An important piece of your final project is a public web site that describes all the great work you did for your project. The web site serves as the final project report, and needs to describe your complete project.
+En el directorio Datasets se encuentra un readme que describe como conseguir el dataset a utilizar.
+Una vez se encuentre el archivo "csgo_games.csv" en el directorio Datasets, ejecutar el script de shell de 
+la siguiente forma: 
 
-1. Description of problem.
-2. Description of the need for Big Data.
-3. Description of the solution and comparison with existing work on the problem.
-4. Description of the data: where did it come from, how did you acquire it, what does it mean, etc.
-5. Technical description of the application, programming models, platform and infrastructure.
-6. Links to the repository with source code, evaluation data sets and test cases.
-7. Technical description of the software design, code baseline, dependencies, how to use the code, and system and environment needed to reproduce your tests.
-8. Performance evaluation (speed-up) and discussion about overheads and optimizations done.
-9. Description of advanced features like models/platforms not explained in class, advanced functions of modules, techniques to mitigate overheads, challenging implementation aspects...
-10. Final discussion about goals achieved, improvements suggested, lessons learnt, future work, interesting insights… and any needed reference.
-Your web page should include screenshots of your software that demonstrate how it functions.
+1.- Abrir una terminal de linux
+2.- Ejecutar el sh -> ./script.sh
+
+Eso generará un csv de 2GB y los datos estarán listos.
+
+En cuanto a los scripts, se encuentran en el directorio Scripts y son 5 casos en total.
+
+-------------------- EN MODO LOCAL ------------------------------
+
+Para poder ejecutarlos hay que seguir los siguientes pasos:
+
+1.- Instalar pip, lo que luego permitirá instalar el resto de librerías
+    sudo apt update
+    sudo apt install python3-pip
+
+2.- Instalar python
+
+3.- Instalar PySpark
+    pip install pyspark
+
+4.- Ejecutar los scripts de la siguiente forma:
+    Ejemplo: python csgo_mvp.py
+
+--------------------- EN GOOGLE CLOUD ----------------------------
+
 

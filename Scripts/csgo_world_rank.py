@@ -1,17 +1,14 @@
 from pyspark import SparkConf, SparkContext
 from pyspark.sql.session import SparkSession
 from pyspark.sql.functions import when, lit
-import sys
 
 conf = SparkConf().setAppName('CSGO World Rank')
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
-filepath = sys.argv[1]
-
 def leer_csv():
     "Devuelve un DataFrame con los datos del csv"
-    df = spark.read.option("header", True).csv(filepath)
+    df = spark.read.option("header", True).csv("../Datasets/csgo_games2GB.csv")
 
     # Conversion columnas a datos usados
     df = df.withColumn('t1_world_rank', df['t1_world_rank'].cast("Int"))

@@ -1,17 +1,14 @@
 from pyspark import SparkConf, SparkContext
 from pyspark.sql.session import SparkSession
 from pyspark.sql.functions import when, lit, greatest, coalesce, col
-import sys
 
 conf = SparkConf().setAppName('CSGO MVP')
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
-filepath = sys.argv[1]
-
 def leer_csv():
     "Devuelve un DataFrame con los datos del csv"
-    df = spark.read.option("header", True).csv(filepath)
+    df = spark.read.option("header", True).csv("../Datasets/csgo_games2GB.csv")
 
     # Conversion columnas a datos usados
     for player in range(5): # [0, 4]

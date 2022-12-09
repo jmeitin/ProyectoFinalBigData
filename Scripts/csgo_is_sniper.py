@@ -1,17 +1,14 @@
 from pyspark import SparkConf, SparkContext
 from pyspark.sql.session import SparkSession
-from pyspark.sql.functions import when, lit, greatest, coalesce, col
-import sys
+from pyspark.sql.functions import when, lit
 
 conf = SparkConf().setAppName('CSGO Is Sniper')
 sc = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
-filepath = sys.argv[1]
-
 def leer_csv():
     "Devuelve un DataFrame con los datos del csv"
-    df = spark.read.option("header", True).csv(filepath)
+    df = spark.read.option("header", True).csv("../Datasets/csgo_games2GB.csv")
 
     # Conversion columnas a datos usados
     for player in range(5): # [0, 4]
@@ -58,7 +55,7 @@ def main ():
     is_sniperDF = is_sniperDF.drop('t1_player1_is_sniper', 't1_player2_is_sniper', 't1_player3_is_sniper', 't1_player4_is_sniper',
     't1_player5_is_sniper', 't2_player1_is_sniper', 't2_player2_is_sniper', 't2_player3_is_sniper', 't2_player4_is_sniper', 't2_player5_is_sniper')
 
-    # Evaluacion Datos ==> Gano el que tenia al MVP?
+    # Evaluacion Datos ==> Gano el que tenia mayor numero de snipers?
     winnerDF = is_sniperDF.withColumn("more_snipers_is_winner", \
     when((is_sniperDF.more_snipers_in_t1 == "Hay mas") & (is_sniperDF.winner == "t1"), lit("Hay mas")) \
         .when((is_sniperDF.more_snipers_in_t1 == "Hay menos") & (is_sniperDF.winner == "t2"), lit("Hay mas")) \
