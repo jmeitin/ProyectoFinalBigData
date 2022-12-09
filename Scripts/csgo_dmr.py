@@ -8,7 +8,7 @@ spark = SparkSession(sc)
 
 def leer_csv():
     "Devuelve un DataFrame con los datos del csv"
-    df = spark.read.option("header", True).csv("../Datasets/CSGO/csgo_games.csv")
+    df = spark.read.option("header", True).csv("csgo_games2GB.csv")
 
     # Conversion columnas a datos usados
     for player in range(5): # [0, 4]
