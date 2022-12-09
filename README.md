@@ -35,24 +35,35 @@ la siguiente forma:
 
 Eso generará un csv de 2GB y los datos estarán listos.
 
-En cuanto a los scripts, se encuentran en el directorio Scripts y son 5 casos en total.
+En cuanto a los scripts, se encuentran en el directorio Scripts y están divididos entre LOCAL
+y CLOUD. Son los mismos scripts pero la lectura del archivo csv cambia en modo CLOUD por comodidad.
 
--------------------- EN MODO LOCAL ------------------------------
+Se ha utilizado el modelo de programación de Spark.
+
+----------- EN MODO LOCAL (con python en la máquina) ------------
 
 Para poder ejecutarlos hay que seguir los siguientes pasos:
 
-1.- Instalar pip, lo que luego permitirá instalar el resto de librerías
+1.- Instalar pip, lo que luego permitirá instalar el resto de librerías -> 
     sudo apt update
     sudo apt install python3-pip
 
 2.- Instalar python
 
-3.- Instalar PySpark
-    pip install pyspark
+3.- Instalar PySpark -> pip install pyspark
 
-4.- Ejecutar los scripts de la siguiente forma:
-    Ejemplo: python csgo_mvp.py
+4.- Ejecutar los scripts de la siguiente forma ->
+    python csgo_mvp.py
 
---------------------- EN GOOGLE CLOUD ----------------------------
+--------------------- EN GOOGLE CLOUD ---------------------------
+
+1.- Crear un cluster.
+
+2.- Crear un bucket y subir los archivos. Los 5 scripts y el archivo de los datos (csgo_games2GB.csv)
+
+3.- Crear 5 jobs, uno por cada script. Los jobs se crean en europe-west6, en el cluster creado y 
+en modo PySpark. Como archivo prinicpal de python -> gs://<BUCKET>/archivo.py y como parámetros opcionales ->
+gs://<BUCKET>/csgo_games2GB.csv. Además se puede elegir el número de nodos e hilos a usar.
+
 
 

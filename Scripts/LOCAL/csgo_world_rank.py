@@ -8,7 +8,7 @@ spark = SparkSession(sc)
 
 def leer_csv():
     "Devuelve un DataFrame con los datos del csv"
-    df = spark.read.option("header", True).csv("../Datasets/csgo_games2GB.csv")
+    df = spark.read.option("header", True).csv("../../Datasets/csgo_games2GB.csv")
 
     # Conversion columnas a datos usados
     df = df.withColumn('t1_world_rank', df['t1_world_rank'].cast("Int"))
