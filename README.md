@@ -1,4 +1,4 @@
-# ProyectoFinalBigData
+# Análisis de factores de victoria en CSGO
 * Pablo Fernández Álvarez
 * Javier Meitín Moreno
 

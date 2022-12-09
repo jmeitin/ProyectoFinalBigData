@@ -125,8 +125,7 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-Datasets/LOL/matches.csv
-Datasets/CSGO/csgo_games2GB.csv
+Datasets/csgo_games2GB.csv
 
 # Pyre type checker
 .pyre/
