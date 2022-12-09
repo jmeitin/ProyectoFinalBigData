@@ -62,8 +62,8 @@ Para poder ejecutarlos hay que seguir los siguientes pasos:
 2.- Crear un bucket y subir los archivos. Los 5 scripts y el archivo de los datos (csgo_games2GB.csv)
 
 3.- Crear 5 jobs, uno por cada script. Los jobs se crean en europe-west6, en el cluster creado y 
-en modo PySpark. Como archivo prinicpal de python -> gs://<BUCKET>/archivo.py y como parámetros opcionales ->
-gs://<BUCKET>/csgo_games2GB.csv. Además se puede elegir el número de nodos e hilos a usar.
+en modo PySpark. Como archivo prinicpal de python -> gs://BUCKET/archivo.py y como parámetros opcionales ->
+gs://BUCKET/csgo_games2GB.csv. Además se puede elegir el número de nodos e hilos a usar.
 
 
 
