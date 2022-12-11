@@ -12,7 +12,7 @@ En total, hemos analizado las siguientes estadśiticas:
 
 - En que medida afecta el ranking global de los equipos a la victoria.
 - En que medida afecta la puntuación media del equipo a la victoria.
-- En que medida afecta que el nivel de cada jugador sea diferente o parecido al resto de sus compañeros a la victoria.
+- En que medida afecta que el nivel de cada jugador sea diferente al resto de sus compañeros a la victoria.
 - En que medida afecta el que un equipo tenga el MVP de la partida en su equipo a la victoria.
 - En que medida afecta el que un equipo juegue con mas SNIPERS en su equipo a la victoria.
 - En que medida afecta el daño medio por ronda del equipo a la victoria.
